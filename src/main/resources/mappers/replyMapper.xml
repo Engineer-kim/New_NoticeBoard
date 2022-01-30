@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- table 명 reply , Vo(bean  ReplyVo) -->
+<mapper namespace="com.board.mappers.reply">
+
+		<!-- 댓글 조회 -->
+		<select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVo">
+		select
+			replyIdx, idx, writer, content, regDt
+		from reply
+			where idx = #{idx}		
+		</select>
+
+		<!-- 댓글 작성 -->
+		<insert id="replyWrite" parameterType="com.board.domain.ReplyVo">
+			insert into 
+					reply( idx, writer, content)
+			value
+				(
+				  #{idx}, #{writer}, #{content}
+				)
+		</insert>
+	
+		<!-- 댓글 수정 -->
+		<update id="replyModify" parameterType="com.board.domain.ReplyVo">
+			update reply set
+			writer = #{writer},
+			content = #{content}
+			where replyIdx = #{replyIdx}
+			and idx = #{idx}	
+		</update>
+
+		<!-- 댓글 삭제 -->
+		<delete id="replyDelete" parameterType="com.board.domain.ReplyVo">
+			delete from reply
+			where replyIdx = #{replyIdx}
+			and idx = ${idx}	
+		</delete>
+		
+	
+	
+</mapper>

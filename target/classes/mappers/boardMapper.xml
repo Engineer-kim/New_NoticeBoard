@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- table 명 board , Vo(bean  BoardVo) -->
+<mapper namespace="com.board.mappers.board">
+		
+		<!-- 게시물 목록 --> 
+<!-- 	<select id="list"  resultType="com.board.domain.BoardVo">    -->
+<!--  		 select -->
+<!--   				idx, title, writer, regDt -->
+<!--  		 from 	 -->
+<!--  		 		board.board -->
+<!--  		 order by    -->
+<!--  		 		idx desc -->
+
+<!-- 		limit 0 ,10 -->
+<!-- 	</select> -->
+	<!-- 게시물 목록 + 페이징 -->
+		<select id="list" parameterType="hashMap" resultType="com.board.domain.BoardVo">
+ 			select
+  					idx, title, writer, regDt
+ 			from  board
+ 			order by idx desc
+  			limit #{displayPost}, #{postNum}
+		</select>
+	
+	
+	<!--게시판 CRUD 쿼리 -->
+	 <!-- 게시물 작성 -->
+	<insert id="write" parameterType="com.board.domain.BoardVo">
+ 		insert into
+  				board(writer, title, content ,fileName)
+   		values(
+               #{writer}, #{title}, #{content}, #{fileName}
+               
+               )
+               
+	</insert>
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.board.domain.BoardVo">   <!--resultType select 된 데이터를 반환할 그릇을 지정,BoardVo 객체에 담긴다-->
+ 		select 
+  			idx, title, content, writer , regDt
+ 		from 
+  			board
+ 		where
+  			idx = #{idx}   
+	</select>
+		<!-- 게시물 수정 -->
+	<update id="modify" parameterType="com.board.domain.BoardVo" >
+ 	update board
+	   set
+   			title = #{title},
+   			content = #{content},
+   			writer = #{writer}
+  	 where idx = #{idx}
+	</update>
+	
+	<delete id="delete">   <!--자바단에서 자료형 타입을 int 로 지정 쿼리에서 idx(키 값)을 사용 형변환 하면서 꼬임 -->                   
+ 	delete
+  		from board
+ 			where idx = #{idx}
+	</delete>	
+		<!--기본적인 CRUD 쿼리 끝나는 지점 -->
+		
+		
+		<!-- 검색 기능 -->
+<!-- 		<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVo"> -->
+<!-- 		select -->
+<!-- 			idx, title, writer, regDt -->
+<!-- 		from board -->
+		
+<!-- 		<if test='searchType.equals("title")'> -->
+<!-- 			WHERE title LIKE concat('%', #{keyword}, '%') -->
+<!-- 		</if> -->
+		
+<!-- 		<if test='searchType.equals("content")'> -->
+<!-- 			WHERE content LIKE concat('%', #{keyword}, '%') -->
+<!-- 		</if> -->
+		
+<!-- 		<if test='searchType.equals("title_content")'> -->
+<!-- 			WHERE title LIKE concat('%', #{keyword}, '%')  -->
+<!-- 				or content LIKE concat('%', #{keyword}, '%') -->
+<!-- 		</if> -->
+		
+<!-- 		<if test='searchType.equals("writer")'> -->
+<!-- 			WHERE writer LIKE concat('%', #{keyword}, '%') -->
+<!-- 		</if> -->
+		
+<!-- 		order by idx desc -->
+<!-- 			limit 0, 10 -->
+<!-- 	</select>	 -->
+		
+		<!-- 게시물 총 갯수 -->
+	 <select id="count" resultType="int">
+ 			select count(idx) from board
+	 </select>
+
+	<!-- 게시물 목록 + 페이징 -->
+		<select id="listPage" parameterType="hashMap" resultType="com.board.domain.BoardVo">
+ 			select
+  					idx, title, writer, regDt
+ 			from  board
+ 			order by idx desc
+  			limit #{displayPost}, #{postNum}
+		</select>
+		
+		
+		<select id="listSearch" parameterType="hashMap" resultType="com.board.domain.BoardVo">
+ 			select
+  					idx, title, writer, regDt
+ 			from  board
+ 			 <if test='searchType.equals("title")'>
+  			WHERE title LIKE concat('%', #{keyword}, '%')
+ 		</if>
+ 
+ 		<if test='searchType.equals("content")'>
+  			WHERE content LIKE concat('%', #{keyword}, '%')
+ 		</if>
+ 
+ 		<if test='searchType.equals("title_content")'>
+  			WHERE title LIKE concat('%', #{keyword}, '%') 
+   			or content LIKE concat('%', #{keyword}, '%')
+ 		</if>
+ 
+ 		<if test='searchType.equals("writer")'>
+ 			WHERE writer LIKE concat('%', #{keyword}, '%')
+ 		</if>
+ 			order by idx desc
+  			limit #{displayPost}, #{postNum}
+		</select>
+		<!-- 게시물 총 갯수 + 검색 적용 -->
+<select id="searchCount" parameterType="hashMap" resultType="int">
+ select count(idx) from board  
+  
+ <if test='searchType.equals("title")'>
+  WHERE title LIKE concat('%', #{keyword}, '%')
+ </if>
+ 
+ <if test='searchType.equals("content")'>
+  WHERE content LIKE concat('%', #{keyword}, '%')
+ </if>
+ 
+ <if test='searchType.equals("title_content")'>
+  WHERE title LIKE concat('%', #{keyword}, '%') 
+   or content LIKE concat('%', #{keyword}, '%')
+ </if>
+ 
+ <if test='searchType.equals("writer")'>
+  WHERE writer LIKE concat('%', #{keyword}, '%')
+ </if>
+ 
+</select>
+		
+	
+</mapper>
