@@ -31,9 +31,9 @@
 	 <!-- 게시물 작성 -->
 	<insert id="write" parameterType="com.board.domain.BoardVo">
  		insert into
-  				board(writer, title, content ,fileName)
+  				board(writer, title, content )
    		values(
-               #{writer}, #{title}, #{content}, #{fileName}
+               #{writer}, #{title}, #{content}
                
                )
                

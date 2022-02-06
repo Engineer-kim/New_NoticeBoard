@@ -1,25 +1,24 @@
 package com.board.controller;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.board.domain.BoardVo;
+import com.board.domain.Member;
 import com.board.domain.Page;
 import com.board.domain.ReplyVo;
 import com.board.service.BoardService;
+import com.board.service.MemberService;
 import com.board.service.ReplyService;
 
 @Controller
@@ -32,6 +31,8 @@ public class BoardController {
 	@Inject
 	private ReplyService replyService;
 	
+	@Inject
+	private MemberService memberService;
 
     
 	// 게시물 목록 + 페이징 추가(검색 안됨 밑의 listSearch 가 검색+ 페이징)
@@ -68,7 +69,7 @@ public class BoardController {
 	
 	// 폼으로 이어 준다
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String Write(BoardVo vo, Model model ,@RequestParam("num") int num) throws Exception {
+	public String Write(BoardVo vo, Member vo1, Model model ,@RequestParam("num") int num ,HttpSession session) throws Exception {
 	 
 //		System.out.println("dsaxsd");
 		service.write(vo);
@@ -86,9 +87,18 @@ public class BoardController {
 		model.addAttribute("page",page);
 
 		model.addAttribute("select", num);
+		
+		
+		
+		boolean result = memberService.loginCheck(vo1, session); //id ,pwd 잘 넘어옴
+		ModelAndView mav = new ModelAndView();
+		
+		
+		
 	
 
-	  return "redirect:/board/listSearch?num=1";
+	  return "redirect:/board/listSearch?num=1";  //${page.num} 파라미터 넘기실 값은 잘읽어옴 But, 500 error 벌생
+	  //Request processing failed; nested exception is java.lang.IllegalArgumentException: Model has no value ==>500 error
 	}
 	// 상세 페이지
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -174,10 +184,10 @@ public class BoardController {
 		 model.addAttribute("select", num);
 		 
 		 
-		 
 	}
 
-
 	
 	
-}
+	
+}	
+	

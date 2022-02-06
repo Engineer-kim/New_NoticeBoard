@@ -1,6 +1,6 @@
 package com.board.domain;
 
-import java.util.Date;
+
 
 public class ReplyVo {
 	
@@ -17,8 +17,7 @@ public class ReplyVo {
 	/* 글내용*/
 	private String content;
 	
-	/*등록일*/
-	private Date regDt;
+	
 
 	public int getReplyIdx() {
 		return replyIdx;
@@ -52,13 +51,7 @@ public class ReplyVo {
 		this.content = content;
 	}
 
-	public Date getRegDt() {
-		return regDt;
-	}
-
-	public void setRegDt(Date regDt) {
-		this.regDt = regDt;
-	}
+	
 
 	
 }

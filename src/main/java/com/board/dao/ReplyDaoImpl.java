@@ -34,12 +34,18 @@ public class ReplyDaoImpl  implements ReplyDao{
 	// 댓글 수정
 	@Override
 	public void modify(ReplyVo vo) throws Exception {
-	    sql.update(namespace + ".replyModify", vo);
+	    sql.update(namespace + ".modify", vo);
 	}
 
 	// 댓글 삭제
 	@Override
-	public void delete(ReplyVo vo) throws Exception {
-	    sql.delete(namespace + ".replyDelete", vo);
+	public void delete(int replyIdx) throws Exception {
+	    sql.delete(namespace + ".delete" ,replyIdx);
+	}
+
+	// 댓글 상세
+	@Override
+	public ReplyVo reply_view(int replyIdx) throws Exception{
+		return sql.selectOne(namespace =".reply_view" ,replyIdx);
 	}
 }

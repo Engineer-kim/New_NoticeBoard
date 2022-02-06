@@ -145,6 +145,10 @@ public class BoardDaoImpl implements BoardDao {
 	 return sql.selectOne(namespace + ".searchCount", data); 
 	}
 
+
+
+	
+
 	
 	
 }

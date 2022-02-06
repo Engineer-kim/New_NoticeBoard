@@ -9,7 +9,7 @@
 		<!-- 댓글 조회 -->
 		<select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVo">
 		select
-			replyIdx, idx, writer, content, regDt
+			replyIdx, idx, writer, content
 		from reply
 			where idx = #{idx}		
 		</select>
@@ -24,22 +24,37 @@
 				)
 		</insert>
 	
-		<!-- 댓글 수정 -->
-		<update id="replyModify" parameterType="com.board.domain.ReplyVo">
-			update reply set
-			writer = #{writer},
-			content = #{content}
-			where replyIdx = #{replyIdx}
-			and idx = #{idx}	
-		</update>
+		
 
 		<!-- 댓글 삭제 -->
-		<delete id="replyDelete" parameterType="com.board.domain.ReplyVo">
+		<delete id="delete" parameterType="int" >  <!--원래 코드 :parameterType="com.board.domain.ReplyVo"  -->
+		<!-- 내 생각에 key값 기준 ReplyIdx기준으로 지우기때문에 parametertype은 int 형으로 해야할꺼같음 , 오류나면 parameterType int로 바꿔서 하기 -->  
 			delete from reply
 			where replyIdx = #{replyIdx}
-			and idx = ${idx}	
+<!-- 			and   idx= #{idx} -->
+<!-- 2022-02-03 삭제쿼리는 작동, 컨트롤러 단에서 라우터 이동을 몬함 view?idx=0으로 받아옴 -->
 		</delete>
-		
-	
-	
+			
+		<!-- 댓글 수정 -->
+		<update id="modify" parameterType="com.board.domain.ReplyVo">
+		 update reply 
+			 set
+				writer = #{writer},
+				content = #{content}
+		 where replyIdx = #{replyIdx}
+<!-- 					and idx = #{idx}	 -->
+		</update>
+
+<!-- resultType 클래스명 Or Alias , Vo, DTO, 등등 경로 명시  -->
+<!-- resultMap 직접 POJO(== Vo 에  getter ,setter 형태로 데이터 선언 한거) 클래스에 매핑하여 제한없이 사용가능 -->
+
+			<!-- 댓글 상세 페이지  -->
+			<select id="reply_view" parameterType="com.board.domain.ReplyVo"> <!-- resultType="com.board.domain.ReplyVo" -->
+					select 
+						replyIdx, content , writer 
+					from	
+						reply
+					where 
+						replyIdx = #{replyIdx}
+			</select>
 </mapper>

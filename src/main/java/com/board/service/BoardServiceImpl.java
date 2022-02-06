@@ -114,5 +114,8 @@ public class BoardServiceImpl implements BoardService {
 	public int searchCount(String searchType, String keyword) throws Exception {
 	 return dao.searchCount(searchType, keyword);
 	}
+
+
+	
 	
 }

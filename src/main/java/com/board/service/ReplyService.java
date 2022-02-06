@@ -18,5 +18,9 @@ public interface ReplyService {
 	public void modify(ReplyVo vo) throws Exception;
 
 	// 댓글 삭제
-	public void delete(ReplyVo vo) throws Exception;
+	public void delete(int replyIdx) throws Exception;
+
+	//댓글 상세 
+	public ReplyVo reply_view(int replyIdx) throws Exception;
+	
 }	

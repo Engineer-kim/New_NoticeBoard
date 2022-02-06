@@ -32,7 +32,15 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public void delete(ReplyVo vo) throws Exception {
-	    dao.delete(vo);
+	public void delete(int replyIdx) throws Exception {
+	    dao.delete(replyIdx);
 	}
+
+	@Override
+	public ReplyVo reply_view(int replyIdx) throws Exception {
+			return dao.reply_view(replyIdx);
+	}
+	
+	
+	
 }

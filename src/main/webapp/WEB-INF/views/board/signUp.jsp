@@ -75,7 +75,7 @@
 			
 			//패스워드 확인
 			else if($('#passwd').val() != $('#passwdCheck').val()){
-				alert('패스워드가 다릅니다 , 똑바로 하셈.');
+				alert('패스워드가 다릅니다 , 똑같이 똑바로 입력하셈.');
 				$('#passwd').focus();
 				return;
 			}
@@ -101,7 +101,7 @@
 						idx=true;
 						$('#userid').attr("readonly",true);    //아이디 중복체크시 사용가능 아이디 중복되지않는 사용가능 아이디일경우 수정불가
 						$("#check").attr("disabled" ,true);  // 중복 체크를 돌아 중복되지않는 아이디면비활됨
-						var html="<tr><td colspan='3' style='color: green'>사용가능</td></tr>";
+						var html="<tr><td colspan='3' style='color: green'>사용가능할지도!</td></tr>";
 						$('#idCheck').empty();
 						$('#idCheck').append(html);
 						
@@ -127,13 +127,14 @@
 	/*reset button*/
 	
 	function resetForm() {
-		$('#userid').attr("readonly",false); // reset 클릭시 다시 수정가능   참고 사이트 :https://www.tutorialrepublic.com/faq/how-to-reset-a-form-using-jquery.php
-		$("#check").attr("disabled" ,false);  //rest 클릭시 다시 중복 체크 버튼 활성화, 
-		document.getElementById("signFrm").reset();
+// 		$('#userid').attr("readonly",false); // reset 클릭시 다시 수정가능   참고 사이트 :https://www.tutorialrepublic.com/faq/how-to-reset-a-form-using-jquery.php
+// 		$("#check").attr("disabled" ,false);  //rest 클릭시 다시 중복 체크 버튼 활성화, 
+		alert('입력한 정보는 모두 초기화됩니다');
+// 		document.getElementById("signFrm").reset();
+		 window.location.reload();
 	}
-	/*reset button*/
-	
-	
+	/*reset button finish*/
+
 
 	
 	

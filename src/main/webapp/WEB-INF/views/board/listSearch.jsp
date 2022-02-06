@@ -68,8 +68,19 @@ a { text-decoration: none; color: black; }
 		</section>
 	</div>
 
+<c:choose>
+<c:when test="${empty sessionScope.userid}">
 <button id="login"><a href="/board/login">Login</a></button>
 <button id="signUp"><a href="/board/signUpPage">SignUp</a></button>
+<button id="home"><a href="/">Home</a></button>
+</c:when>
+<c:otherwise>
+<button id="logOut"><a href="logout">로그아웃</a></button>
+<button id="home"><a href="/">Home</a></button>
+<a href= "detail">${sessionScope.name}${sessionScope.userid}님 환영합니다<a>
+</c:otherwise>	
+</c:choose>
+
 <br>
 <!-- 리스트  테이블 시작 -->
 <div class="boardcss_list_table">
@@ -153,14 +164,13 @@ a { text-decoration: none; color: black; }
      					<option value="title_content" <c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
      					<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
  					</select>
- 
  						<input type="text" name="keyword" value="${page.keyword}"/>
- 
  						<button type="button" id="searchBtn">검색</button>
+<%--  						<a href="listSearchPage?num=${num}"><button>해제</button></a> --%>
 				</div>
  			</form>
 					<div class="boardcss_list_add_button">
-						<a href="/board/write?num=${page.num}"><p class="add_button">게시글 등록</p></a>
+						<button><a href="/board/write?num=${page.num}"><p class="add_button">게시글 등록</p></a></button>
 							<ul></ul>
 					</div>
 					<input type="button" value="선택 삭제" class="btn btn-outline-info" onclick="deleteValue();">
@@ -253,5 +263,23 @@ a { text-decoration: none; color: black; }
 						location.href="signUpPage";
 					});
 				});
+			 
+			 
+// 			 $(document).ready(function(e){
+				 
+// 				 	$("#reset").click(function(){
+// 				 		location.href="listSearchPage";
+// 			 	});
+// 			 }); 
+			 
+			 /*메인으로 이동*/
+// 			 $(document).ready(function(e){
+					
+// 					$('#main').click(function() {
+// 						location.href="http://localhost:8080/";
+// 					});
+// 				});
+			 
+			 
 	</script>
 </html>

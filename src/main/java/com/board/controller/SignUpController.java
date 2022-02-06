@@ -31,7 +31,7 @@ public class SignUpController {
 		
 		service.signUp(vo);
 		
-		return "board/login";
+		return "board/beforeLogin";
 	}
 	
 	//produces는 ajax가 데이터 넘겨받을때 깨짐 방지

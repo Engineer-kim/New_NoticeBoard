@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <style>
 /*a 태그 밑줄 , 색깔 없애기*/
@@ -57,33 +58,60 @@ a { text-decoration: none; color: black; }
         </form>
         			<hr />		
 								<!-- 댓글 부분 -->
+<!-- 								<form method="GET"  action="/reply/delete"> -->
 								<center>
 										<label>댓글 목록</label>
 										<table class="list_table">
 										<colgroup>
-												<col width="25%" />
-												<col width="25%" />
+												<col width="20%" />
+												<col width="20%" />
+												<col width="20%" />
+												<col width="20%" />
 										</colgroup>
 										<thead>
 											<tr>
+												<th>댓글번호</th>
 												<th>댓글작성자</th>
 												<th>댓글내용</th>
+												<th>댓글관리</th>
 											</tr>							
 										</thead>
 									<tbody>
 									<c:forEach items="${reply}" var="reply">
 										<tr>
-											<th style="font-weight:100;">${reply.writer}</th>
+											<th style="font-weight:100;">${reply.replyIdx}</th>
+											<th style="font-weight:100;">${reply.writer}</th>	
+<%-- 											<c:choose> --%>
+<%-- 											<c:when test="${empty sessionScope.userid}"> --%>
+<%-- 											<th style="font-weight:100;">${reply.writer}</th>											 --%>
+<%-- 											</c:when> --%>
+<%-- 											<c:otherwise> --%>
+<%-- 											<th style="font-weight:100;">${sessionScope.userid}</th> --%>
+<%-- 											</c:otherwise>	 --%>
+<%-- 											</c:choose> --%>
 											<th style="font-weight:100;">${reply.content}</th>
+<%-- 										<th><button id="deleteComment"><a href="/reply/delete?replyIdx=${reply.replyIdx}?idx=${reply.idx}">댓글 삭제</a></button></th> --%>
+											<th><button id="CommentDel"><input type="hidden" name="idx" value="${view.idx}"><a href="/reply/delete?replyIdx=${reply.replyIdx}">댓글 삭제</a></button></th>
+<%-- 											<th><button><a href="/reply/replyModify?replyIdx=${reply.replyIdx}">수정</a></button></th> --%>
 										</tr>	
-									</c:forEach>	
+									</c:forEach>
+									
 									</tbody>
-									</table>		
+									</table>	
+<!-- 									</form>		 -->
 								<div>
 
 								<form method="POST" action="/reply/write">
 									<p>
-										<label>댓글 작성자</label> <input type="text" name="writer">
+									<label>댓글 작성자</label> <input type="text" name="writer">
+<%-- 										<c:choose> --%>
+<%-- 										<c:when test="${empty sessionScope.userid}">										 --%>
+<!-- 										<label>댓글 작성자</label> <input id="writer" type="text" name="writer" disabled> -->
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<%-- 											<label>댓글 작성자</label><input type="text" ${sessionScope.userid}  disabled> --%>
+<%-- 											</c:otherwise>	 --%>
+<%-- 											</c:choose> --%>
 									</p>
 									<p>
 										<textarea rows="5" cols="50" name="content"></textarea>
@@ -93,9 +121,32 @@ a { text-decoration: none; color: black; }
 										<button type="submit">댓글 작성</button>
 									</p>
 								</form>
-	
 								</div>
+								
+								
+								
+
 	
 </center>
+<script type="text/javascript">
+// 			$(document).ready(funtion(){
+// 				$("#CommentDel").click(function(){
+// 					$(location).attr('href','listSearch?num=1')
+// 			});
+// // 		});	
+ 	$(function(){
+ 		if($('#sessionScope.userid').val() == ''){
+ 		     $('#writer').removeAttr("readonly");
+ 		}
+ 		else{
+ 			$('#loginWriter').removeAttr("readonly");
+ 		}
+});
+ 
+
+
+
+
+</script>
 </body>
 </html>
