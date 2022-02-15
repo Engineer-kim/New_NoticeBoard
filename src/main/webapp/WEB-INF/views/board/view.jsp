@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,12 @@ a { text-decoration: none; color: black; }
 
 .list_table { width: 100%; }
 .boardcss_list_table { width: 100%; }
+/*textarea 하단 모서리 줄임 없애기*/
+ textarea {
+    width: 100%;
+    height: 6em;
+    resize: none;
+  }
 </style>
 <body>
 
@@ -41,7 +47,10 @@ a { text-decoration: none; color: black; }
                         <td>제목</td>
                         <td><input type = text name = title size=60 value="${view.title}" disabled></td>
                         </tr>
- 
+<!--  						 <tr> -->
+<!--                         <td>파일</td> -->
+<%--                			 <td><input type="file" value="${view.file}" disabled ></td> --%>
+<!--                         </tr> -->
                         <tr>
                         <td>내용</td>
                         <td><textarea name = content cols=85 rows=15 disabled>${view.content}</textarea></td>
@@ -100,10 +109,11 @@ a { text-decoration: none; color: black; }
 									</table>	
 <!-- 									</form>		 -->
 								<div>
-
-								<form method="POST" action="/reply/write">
+		<c:choose>
+<c:when test="${not empty sessionScope.userid}">
+								<form method="POST" action="/reply/write" id="replyForm" >
 									<p>
-									<label>댓글 작성자</label> <input type="text" name="writer">
+									<label>댓글 작성자</label> <input type="text" name="writer" value="${sessionScope.userid}" readonly>
 <%-- 										<c:choose> --%>
 <%-- 										<c:when test="${empty sessionScope.userid}">										 --%>
 <!-- 										<label>댓글 작성자</label> <input id="writer" type="text" name="writer" disabled> -->
@@ -114,21 +124,48 @@ a { text-decoration: none; color: black; }
 <%-- 											</c:choose> --%>
 									</p>
 									<p>
-										<textarea rows="5" cols="50" name="content"></textarea>
+										<textarea rows="5" cols="50" name="content" required></textarea>
 									</p>
 									<p>
 										<input type="hidden" name="idx" value="${view.idx}">
 										<button type="submit">댓글 작성</button>
 									</p>
 								</form>
+								</c:when>
+								<c:otherwise>
+								<form method="POST" action="/reply/write" id="replyForm">
+									<p>
+									<label>댓글 작성자</label> <input type="text" name="writer" required >
+<%-- 										<c:choose> --%>
+<%-- 										<c:when test="${empty sessionScope.userid}">										 --%>
+<!-- 										<label>댓글 작성자</label> <input id="writer" type="text" name="writer" disabled> -->
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<%-- 											<label>댓글 작성자</label><input type="text" ${sessionScope.userid}  disabled> --%>
+<%-- 											</c:otherwise>	 --%>
+<%-- 											</c:choose> --%>
+									</p>
+									<p>
+										<textarea rows="5" cols="50" name="content" required></textarea>
+									</p>
+									<p>
+										<input type="hidden" name="idx" value="${view.idx}">
+										<button type="submit">댓글 작성</button>
+									</p>
+								</form>
+								</c:otherwise>
+								</c:choose>
 								</div>
 								
+				
 								
 								
 
 	
 </center>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script type="text/javascript">
+
 // 			$(document).ready(funtion(){
 // 				$("#CommentDel").click(function(){
 // 					$(location).attr('href','listSearch?num=1')
@@ -143,7 +180,11 @@ a { text-decoration: none; color: black; }
  		}
 });
  
-
+ 	/*기본적인 validation 내용 없으면 안넘어가도록*/
+	$(function() { 
+			$("#replyForm").validate(); 
+				
+			});
 
 
 

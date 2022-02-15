@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/board/findId.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/findIdView.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/findPw.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/findPwView.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8

@@ -52,8 +52,8 @@
  	update board
 	   set
    			title = #{title},
-   			content = #{content},
-   			writer = #{writer}
+   			content = #{content}
+   		
   	 where idx = #{idx}
 	</update>
 	
@@ -150,8 +150,25 @@
  <if test='searchType.equals("writer")'>
   WHERE writer LIKE concat('%', #{keyword}, '%')
  </if>
- 
 </select>
-		
-	
+
+
+
+	<!-- 파일 인서트 관련 쿼리 -->
+	  <insert id="insertFile" parameterType="hashMap">
+		INSERT INTO file(
+			fileIdx,
+			idx,
+			originalName,
+			updateFileName,
+			fileSize
+		)VALUES(
+			fileIdx,
+			#{idx},
+			#{originalName},
+			#{updateFileName},
+			#{fileSize}
+		)
+    </insert>
+	<!-- 파일 인서트 관련 쿼리 끝 -->
 </mapper>

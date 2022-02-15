@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://JAVA.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
@@ -29,5 +29,30 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!--  파일 업로드 관한 설정 아직 구현중이라 오류 발생가능 발생시 이부분 주석처리 후 진행 -->
+		<servlet>
+		  <servlet-name>web</servlet-name>
+		  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		  <init-param>
+		    <param-name>contextConfigLocation</param-name>
+		    <param-value>
+		      classpath:config/spring/servlet-context.xml
+		      <!-- 추가 부분 -->
+		      		/WEB-INF/spring/context-common.xml
+		      <!-- 추가부분 끝 -->
+		    </param-value>
+		  </init-param>
+		  <load-on-startup>1</load-on-startup>
+		  <multipart-config>
+		    <location>C:/Users/USER/Desktop/UploadTestFileLocation</location><!-- 업로드 파일 저장되는 기본 경로 는 지정 해줘야함 일단 C:\Users\USER\Desktop-->
+		    <max-file-size>20971520</max-file-size> <!-- 한파일: 1mb * 20 -->
+		    <max-request-size>41943040</max-request-size> <!-- 한번에 여러개올리는데 전체가 40mb -->
+		    <file-size-threshold>20971520</file-size-threshold> <!-- 넘으면 temp에 넣고 업로드에 들어가지 않는다 : 20mb -->
+		  </multipart-config>
+		</servlet>
+	<!-- 파일 업로드 관련부분 끝 -->
+
+
 
 </web-app>

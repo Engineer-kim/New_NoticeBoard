@@ -43,6 +43,13 @@
 /*a 태그 밑줄 , 색깔 없애기*/
 a { text-decoration: none; color: black; }
 
+a:hover {
+	background-color: blue; 
+	transition: background-color 2.5s;
+}
+id{
+	
+}
 
 </style>
 
@@ -77,7 +84,7 @@ a { text-decoration: none; color: black; }
 <c:otherwise>
 <button id="logOut"><a href="logout">로그아웃</a></button>
 <button id="home"><a href="/">Home</a></button>
-<a href= "detail">${sessionScope.name}${sessionScope.userid}님 환영합니다<a>
+<a href= "detail">${sessionScope.userid}님 환영합니다<a>
 </c:otherwise>	
 </c:choose>
 
@@ -265,21 +272,14 @@ a { text-decoration: none; color: black; }
 				});
 			 
 			 
-// 			 $(document).ready(function(e){
-				 
-// 				 	$("#reset").click(function(){
-// 				 		location.href="listSearchPage";
+
+			 
+			 /*회원 상세페이지 진입 jquery 버튼 보다는 링크 타입이 더 적합하여  해당 jquery 주석 처리 함*/
+// 			 	$(document).ready(function(e){
+// 			 		$('#detail').click(function(){
+// 			 			location.href="detail";
+// 			 		});
 // 			 	});
-// 			 }); 
-			 
-			 /*메인으로 이동*/
-// 			 $(document).ready(function(e){
-					
-// 					$('#main').click(function() {
-// 						location.href="http://localhost:8080/";
-// 					});
-// 				});
-			 
 			 
 	</script>
 </html>

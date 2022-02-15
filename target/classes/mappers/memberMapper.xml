@@ -33,13 +33,15 @@
 				userid,
 				passwd,
 				name,
-				address
+				email, 
+				number
 			)
 			values (
 				#{userid},
 				#{passwd},
 				#{name},
-				#{address}
+				#{email},
+				#{number}
 					)
 		]]>
 	</insert>
@@ -51,5 +53,62 @@
 			WHERE userid=#{userid} and passwd=#{passwd}
 		]]>
 	</delete>
+	
+	
+	<!--  회원정보 상세 페이지보기 -->
+	<select id="detail" resultType="com.board.domain.Member" >
+		
+			SELECT 
+				userid ,
+				name   ,
+				email ,
+				passwd  ,
+				updateDt ,
+				number  
+			FROM member
+			WHERE userid = #{userid}
+			
+	</select>
+	
+	
+	<!-- 회원정보 수정 페이지 -->
+	<update id="update" parameterType="com.board.domain.Member">
+			UPDATE 
+				member 
+			SET 
+				userid =#{userid},
+				email = #{email},
+				number = #{number},
+				passwd = #{passwd},
+				name = #{name}
+			WHERE userid = #{userid}
+				
+	</update>
+
+	<!--  아이디 찿기 쿼리 부분  아래 2개 로 나뉘어짐 이메일이 있는가, 이메일 있다면 해당이메일의 아이디가 무엇인지-->
+	<select id="findId" resultType="com.board.domain.Member">
+	select * from member where email = #{email}
+	</select>
+	
+	
+	<select id="findIdCheck" resultType="int">
+	select count(*) from member where email = #{email}
+	</select>
+	<!--  아이디 찿기 쿼리 부분 끝 -->
+
+
+	<!-- 비밀번호 찿기 구현부 쿼리 -->
+	<update id="findPw" >
+	update member set passwd = #{passwd} where email= #{email} and userid = #{userid}
+	</update>
+	
+	<select id="findPwCheck" resultType="int">
+	select count(*) from member where email= #{email} and userid = #{userid}
+	</select>
+	<!-- 비밀번호 찿기 구현부 쿼리 finish-->
+
+
+		
+	
 
 </mapper> 

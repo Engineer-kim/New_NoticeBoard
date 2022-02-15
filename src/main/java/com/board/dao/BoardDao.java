@@ -1,10 +1,9 @@
 package com.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.board.domain.BoardVo;
-
-import com.board.domain.Search;
 
 public interface BoardDao {
 	
@@ -15,7 +14,7 @@ public interface BoardDao {
 	 public List list(int displayPost, int postNum) throws Exception;
 	
 	// 글 작성 
-	public void write(BoardVo vo) throws Exception;
+	public void write(BoardVo vo ) throws Exception;
 	
 	//상세보기
 	public BoardVo view(int idx) throws Exception;
@@ -50,5 +49,6 @@ public interface BoardDao {
 	 public int searchCount(String searchType, String keyword) throws Exception;
 	 
 	 
-
+	 /*첨부 파일 다운로드*/
+	 public void insertFile(Map<String, Object> map) throws Exception;
 }

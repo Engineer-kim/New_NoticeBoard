@@ -7,6 +7,9 @@
 	<title>회원탈퇴</title>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
+<style>
+	a { text-decoration: none; color: black; }
+</style>
 <body>
 	<h1>회원탈퇴</h1>
 	<hr />
@@ -15,7 +18,7 @@
 		<table border=1>
 			<tr>
 				<td>패스워드</td>
-				<td><input type="password" name="passwd" id="passwd"></td>
+				<td><input type="password" name="passwd" id="passwd" placeholder ="가입시입력했던비밀번호입력!"></td>
 			</tr>
 			<tr>
 				<td>패스워드 확인</td>
@@ -24,10 +27,13 @@
 			<tr>
 				<td colspan=2 align="center"><a href="#" id="session">탈퇴하기</a></td>
 			</tr>
+			<tr>
+				<td colspan=2 align="center"><a href="/board/listSearch?num=1">게시판으로</a></td>
+			</tr>
 		</table>
 	</form>
 	<hr>
-	<a href="/">메인</a>
+	
 </body>
 
 <script type="text/javascript">

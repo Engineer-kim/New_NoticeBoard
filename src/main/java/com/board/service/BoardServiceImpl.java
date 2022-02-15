@@ -3,12 +3,16 @@ package com.board.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.dao.BoardDao;
 import com.board.domain.BoardVo;
+import com.board.util.FileUtils;
 
 
 
@@ -20,6 +24,8 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	 private BoardDao dao;
 	
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
 
 	
 //	@Override
@@ -37,10 +43,14 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public void write(BoardVo vo) throws Exception {
+	public void write(BoardVo vo , MultipartHttpServletRequest mpRequest) throws Exception {
 		
 		 dao.write(vo);
-		
+		 List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(vo, mpRequest); 
+			int size = list.size();
+			for(int i=0; i<size; i++){ 
+				dao.insertFile(list.get(i)); 
+			}
 	}
 	
 	

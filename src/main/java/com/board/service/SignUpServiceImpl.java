@@ -28,4 +28,3 @@ public class SignUpServiceImpl implements SignUpService {
 		}
 
 	
-

@@ -11,9 +11,54 @@
 <style>
 /*a 태그 밑줄 , 색깔 없애기*/
 a { text-decoration: none; color: black; }
+
+
+ textarea {
+    width: 100%;
+    height: 6em;
+    resize: none;
+  }
 </style>
 <body>
-
+		<c:choose>
+<c:when test="${not empty sessionScope.userid}">
+<form method="post" id="writeForm" enctype="multipart/form-data">
+        <table  style="padding-top:50px" align = center width=700 border=0 cellpadding=2 >
+                <tr>
+                <td height=20 align= center bgcolor=#ccc><font color=white> 글쓰기</font></td>
+                </tr>
+                <tr>
+                <td bgcolor=white>
+                <table class = "table2">
+                        <tr>
+                        <td>작성자</td>
+                        <td><input type = text name = writer size=20  minlength="3"  value="${sessionScope.userid}" readonly></td>
+                        </tr>
+                        <tr>
+                        <td>제목</td>
+                        <td><input type = text name = title size=60  required></td>
+                        </tr>
+                        <tr>
+                        <td>내용</td>
+                        <td><textarea name = content cols=85 rows=15  required style="height: 361px; width: 432px;"></textarea></td>
+                        </tr>
+                        <!--  파일 업로드 관련 부분 시작 DB작업부터 해야함-->
+                        <tr>
+                        <td>파일</td>
+               			 <td><input type="file" name = "file"></td>
+                        </tr>
+					    <!--  파일 업로드 관련 부분 끝 -->
+                        </table>
+                        <center>
+                 		<button type="submit">작성</button>
+                 			<button><a href="/board/listSearch?num=1">취소</a></button>
+                        </center>
+                </td>
+                </tr>
+        </table>
+        </form>
+		</c:when>
+		<c:otherwise>
 	<form method="post" id="writeForm" enctype="multipart/form-data">
         <table  style="padding-top:50px" align = center width=700 border=0 cellpadding=2 >
                 <tr>
@@ -30,6 +75,12 @@ a { text-decoration: none; color: black; }
                         <td>제목</td>
                         <td><input type = text name = title size=60  required></td>
                         </tr>
+                        <!--  파일 업로드 관련 부분 시작 DB작업부터 해야함-->
+                        <tr>
+                        <td>파일</td>
+               			 <td><input type="file" name = "file"></td>
+                        </tr>
+					    <!--  파일 업로드 관련 부분 끝 -->
                         <tr>
                         <td>내용</td>
                         <td><textarea name = content cols=85 rows=15  required style="height: 361px; width: 432px;"></textarea></td>
@@ -49,6 +100,8 @@ a { text-decoration: none; color: black; }
                 </tr>
         </table>
         </form>
+        </c:otherwise>
+        </c:choose>
 
 
 

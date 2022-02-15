@@ -3,6 +3,8 @@ package com.board.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.board.domain.BoardVo;
 
 
@@ -13,7 +15,7 @@ public interface BoardService {
 	public List list(int displayPost, int postNum) throws Exception;
 
 	/*글작성 메소드*/
-	public  void write (BoardVo vo) throws Exception;
+	public  void write (BoardVo vo , MultipartHttpServletRequest mpRequest) throws Exception;
 	
 	/*글 상세보기*/
 	public BoardVo view (int idx) throws Exception;

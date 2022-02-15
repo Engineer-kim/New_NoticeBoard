@@ -23,7 +23,7 @@ a { text-decoration: none; color: black; }
                 <table class = "table2">
                         <tr>
                        <td>작성자</td>
-                        <td><input type = text name = writer size=20 value="${view.writer}"></td>
+                        <td><input type = text name = writer size=20 value="${view.writer}" disabled></td>
                         </tr>
                         <tr>
                         <td>게시글 번호</td>

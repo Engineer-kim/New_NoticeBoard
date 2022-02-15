@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.domain.BoardVo;
@@ -69,10 +70,11 @@ public class BoardController {
 	
 	// 폼으로 이어 준다
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String Write(BoardVo vo, Member vo1, Model model ,@RequestParam("num") int num ,HttpSession session) throws Exception {
+	public String Write(BoardVo vo, Member vo1, Model model ,@RequestParam("num") int num 
+		 ,HttpSession session , MultipartHttpServletRequest mpRequest) throws Exception {
 	 
 //		System.out.println("dsaxsd");
-		service.write(vo);
+		service.write(vo , mpRequest);
 		Page page = new Page();
 		
 		page.setNum(num);
@@ -97,7 +99,7 @@ public class BoardController {
 		
 	
 
-	  return "redirect:/board/listSearch?num=1";  //${page.num} 파라미터 넘기실 값은 잘읽어옴 But, 500 error 벌생
+	  return "redirect:/board/listSearch?num=1";  //${page.num} 파라미터 넘기실 값은 잘읽어옴 But, 500 error 벌생  ==>해결
 	  //Request processing failed; nested exception is java.lang.IllegalArgumentException: Model has no value ==>500 error
 	}
 	// 상세 페이지
@@ -185,7 +187,10 @@ public class BoardController {
 		 
 		 
 	}
-
+	
+	
+	
+	
 	
 	
 	

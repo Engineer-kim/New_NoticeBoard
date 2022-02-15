@@ -10,6 +10,8 @@
 a { text-decoration: none; color: black; }
 </style>
 <body>
+
+
 <h1>
 	Home
 </h1>
@@ -21,7 +23,6 @@ a { text-decoration: none; color: black; }
 <button id="signUp"><a href="/board/signUpPage">SignUp</a></button>
 </c:when>
 <c:otherwise>
-
 </c:otherwise>	
 </c:choose>
 </body>

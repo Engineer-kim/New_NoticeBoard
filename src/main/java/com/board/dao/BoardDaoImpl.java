@@ -9,9 +9,9 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.domain.BoardVo;
-import com.board.domain.Search;
 
 
 
@@ -147,8 +147,12 @@ public class BoardDaoImpl implements BoardDao {
 
 
 
-	
-
+	/*첨부파일 업로드 관련*/
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		
+		sql.insert(namespace +".insertFile", map);
+	}
 	
 	
 }

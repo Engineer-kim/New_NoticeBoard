@@ -11,6 +11,8 @@ public class BoardVo extends Page{
 	private String writer;
 	private Date regDt;
 	
+	
+	
 
 	
 	public int getIdx() {
